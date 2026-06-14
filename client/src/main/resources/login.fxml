@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="me.tihon.controller.LoginController"
+      spacing="15"
+      alignment="CENTER">
+
+    <padding>
+        <Insets top="20"
+                right="20"
+                bottom="20"
+                left="20"/>
+    </padding>
+
+    <Label text="HumanBeing Manager"/>
+
+    <TextField fx:id="usernameField"
+               promptText="Username"/>
+
+    <PasswordField fx:id="passwordField"
+                   promptText="Password"/>
+
+    <HBox spacing="10"
+          alignment="CENTER">
+
+        <Button text="Login"
+                onAction="#login"/>
+
+        <Button text="Register"
+                onAction="#register"/>
+
+    </HBox>
+
+    <Label fx:id="statusLabel"/>
+
+</VBox>

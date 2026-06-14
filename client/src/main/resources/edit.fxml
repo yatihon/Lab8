@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="me.tihon.controller.EditController"
+      spacing="10"
+      alignment="CENTER">
+
+    <TextField fx:id="nameField"
+               promptText="Name"/>
+
+    <TextField fx:id="xField"
+               promptText="Coordinate X"/>
+
+    <TextField fx:id="yField"
+               promptText="Coordinate Y"/>
+
+    <CheckBox fx:id="realHeroBox"
+              text="Real Hero"/>
+
+    <CheckBox fx:id="toothpickBox"
+              text="Has Toothpick"/>
+
+    <TextField fx:id="impactField"
+               promptText="Impact Speed"/>
+
+    <TextField fx:id="soundtrackField"
+               promptText="Soundtrack"/>
+
+    <TextField fx:id="minutesField"
+               promptText="Minutes Of Waiting"/>
+
+    <ComboBox fx:id="weaponBox"/>
+
+    <CheckBox fx:id="carCoolBox"
+              text="Car Cool"/>
+
+    <Button text="OK"
+            onAction="#save"/>
+
+</VBox>

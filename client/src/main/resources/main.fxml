@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import me.tihon.VisualPane?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="me.tihon.controller.MainController">
+
+    <top>
+
+        <HBox spacing="15">
+
+            <Label fx:id="currentUserLabel"/>
+
+            <Button text="Обновить"
+                    onAction="#refreshCollection"/>
+
+            <Button text="Информация"
+                    onAction="#showInfo"/>
+
+            <Button text="Справка"
+                    onAction="#showHelp"/>
+
+        </HBox>
+
+    </top>
+
+    <center>
+
+        <SplitPane dividerPositions="0.55">
+
+            <TableView fx:id="table">
+
+                <columns>
+
+                    <TableColumn fx:id="idColumn"
+                                 text="ID"
+                                 prefWidth="60"/>
+
+                    <TableColumn fx:id="ownerColumn"
+                                 text="Owner"
+                                 prefWidth="120"/>
+
+                    <TableColumn fx:id="nameColumn"
+                                 text="Name"
+                                 prefWidth="140"/>
+
+                    <TableColumn fx:id="xColumn"
+                                 text="X"
+                                 prefWidth="80"/>
+
+                    <TableColumn fx:id="yColumn"
+                                 text="Y"
+                                 prefWidth="80"/>
+
+                    <TableColumn fx:id="impactColumn"
+                                 text="Impact"
+                                 prefWidth="100"/>
+
+                    <TableColumn fx:id="weaponColumn"
+                                 text="Weapon"
+                                 prefWidth="120"/>
+
+                </columns>
+
+            </TableView>
+
+            <VisualPane fx:id="visualPane"
+                               prefWidth="700"/>
+
+        </SplitPane>
+
+    </center>
+
+    <bottom>
+
+        <ToolBar>
+
+            <Button text="Добавить"
+                    onAction="#addHuman"/>
+
+            <Button text="Редактировать"
+                    onAction="#editHuman"/>
+
+            <Button text="Удалить"
+                    onAction="#deleteSelected"/>
+
+            <Separator/>
+
+            <Button text="Clear"
+                    onAction="#clearCollection"/>
+
+            <Button text="Add If Max"
+                    onAction="#addIfMax"/>
+
+            <Button text="Add If Min"
+                    onAction="#addIfMin"/>
+
+            <Button text="Remove Lower"
+                    onAction="#removeLower"/>
+
+        </ToolBar>
+
+    </bottom>
+
+</BorderPane>
