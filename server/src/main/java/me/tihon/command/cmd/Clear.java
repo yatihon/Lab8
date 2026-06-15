@@ -17,12 +17,8 @@ public class Clear implements Command {
 
     @Override
     public Response execute(Request request) {
-        System.out.println("ENTER CLEAR");
         String user = request.getUsername();
-        System.out.println("CLEAR USER = " + request.getUsername());
-
         boolean success = humanDAO.clearByOwner(user);
-        System.out.println("DAO RESULT = " + success);
         if (!success) return new Response("Не удалось удалить элементы");
         manager.getCollection().removeIf(h -> user.equals(h.getOwner()));
         return new Response("Удалены все ваши элементы");

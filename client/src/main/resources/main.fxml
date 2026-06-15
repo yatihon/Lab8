@@ -9,100 +9,79 @@
             fx:controller="me.tihon.controller.MainController">
 
     <top>
+        <VBox>
+            <HBox spacing="10" style="-fx-padding: 8; -fx-background-color: #2b2b2b;">
+                <Label fx:id="currentUserLabel"
+                       style="-fx-text-fill: white; -fx-font-weight: bold;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="langLabel" style="-fx-text-fill: #ccc;"/>
+                <ComboBox fx:id="langBox" prefWidth="80"/>
+                <Button fx:id="btnRefresh"  onAction="#refreshCollection"/>
+                <Button fx:id="btnInfo"     onAction="#showInfo"/>
+                <Button fx:id="btnHelp"     onAction="#showHelp"/>
+            </HBox>
 
-        <HBox spacing="15">
-
-            <Label fx:id="currentUserLabel"/>
-
-            <Button text="Обновить"
-                    onAction="#refreshCollection"/>
-
-            <Button text="Информация"
-                    onAction="#showInfo"/>
-
-            <Button text="Справка"
-                    onAction="#showHelp"/>
-
-        </HBox>
-
+            <HBox spacing="8" style="-fx-padding: 6; -fx-background-color: #3c3c3c;">
+                <Label fx:id="filterLabel"/>
+                <TextField fx:id="filterField"
+                           promptText="Введите значение..."
+                           prefWidth="200"/>
+                <Label fx:id="filterColLabel"/>
+                <ComboBox fx:id="filterColumnBox" prefWidth="130"/>
+                <Separator orientation="VERTICAL"/>
+                <Label fx:id="sortLabel"/>
+                <ComboBox fx:id="sortColumnBox" prefWidth="130"/>
+                <ComboBox fx:id="sortOrderBox"  prefWidth="140"/>
+            </HBox>
+        </VBox>
     </top>
 
     <center>
+        <SplitPane dividerPositions="0.5">
 
-        <SplitPane dividerPositions="0.55">
-
-            <TableView fx:id="table">
-
+            <TableView fx:id="table" style="-fx-base: #3c3f41;">
                 <columns>
-
-                    <TableColumn fx:id="idColumn"
-                                 text="ID"
-                                 prefWidth="60"/>
-
-                    <TableColumn fx:id="ownerColumn"
-                                 text="Owner"
-                                 prefWidth="120"/>
-
-                    <TableColumn fx:id="nameColumn"
-                                 text="Name"
-                                 prefWidth="140"/>
-
-                    <TableColumn fx:id="xColumn"
-                                 text="X"
-                                 prefWidth="80"/>
-
-                    <TableColumn fx:id="yColumn"
-                                 text="Y"
-                                 prefWidth="80"/>
-
-                    <TableColumn fx:id="impactColumn"
-                                 text="Impact"
-                                 prefWidth="100"/>
-
-                    <TableColumn fx:id="weaponColumn"
-                                 text="Weapon"
-                                 prefWidth="120"/>
-
+                    <TableColumn fx:id="idColumn"         text="ID"         prefWidth="50"/>
+                    <TableColumn fx:id="ownerColumn"      text="Owner"      prefWidth="100"/>
+                    <TableColumn fx:id="nameColumn"       text="Name"       prefWidth="120"/>
+                    <TableColumn fx:id="xColumn"          text="X"          prefWidth="70"/>
+                    <TableColumn fx:id="yColumn"          text="Y"          prefWidth="70"/>
+                    <TableColumn fx:id="impactColumn"     text="Impact"     prefWidth="80"/>
+                    <TableColumn fx:id="weaponColumn"     text="Weapon"     prefWidth="100"/>
+                    <TableColumn fx:id="realHeroColumn"   text="Hero"       prefWidth="60"/>
+                    <TableColumn fx:id="soundtrackColumn" text="Soundtrack" prefWidth="120"/>
+                    <TableColumn fx:id="minutesColumn"    text="Minutes"    prefWidth="70"/>
                 </columns>
-
+                <placeholder>
+                    <Label text="Коллекция пуста"/>
+                </placeholder>
             </TableView>
 
-            <VisualPane fx:id="visualPane"
-                               prefWidth="700"/>
+            <VisualPane fx:id="visualPane" prefWidth="600"/>
 
         </SplitPane>
-
     </center>
 
     <bottom>
-
-        <ToolBar>
-
-            <Button text="Добавить"
-                    onAction="#addHuman"/>
-
-            <Button text="Редактировать"
-                    onAction="#editHuman"/>
-
-            <Button text="Удалить"
-                    onAction="#deleteSelected"/>
-
-            <Separator/>
-
-            <Button text="Clear"
-                    onAction="#clearCollection"/>
-
-            <Button text="Add If Max"
-                    onAction="#addIfMax"/>
-
-            <Button text="Add If Min"
-                    onAction="#addIfMin"/>
-
-            <Button text="Remove Lower"
-                    onAction="#removeLower"/>
-
-        </ToolBar>
-
+        <VBox>
+            <ToolBar>
+                <Label fx:id="sectionObject"    />
+                <Button fx:id="btnAdd"          onAction="#addHuman"/>
+                <Button fx:id="btnEdit"         onAction="#editHuman"/>
+                <Button fx:id="btnDelete"       onAction="#deleteSelected"/>
+                <Separator/>
+                <Button fx:id="btnClear"        onAction="#clearCollection"/>
+                <Button fx:id="btnAddIfMax"     onAction="#addIfMax"/>
+                <Button fx:id="btnAddIfMin"     onAction="#addIfMin"/>
+                <Button fx:id="btnRemoveLower"  onAction="#removeLower"/>
+                <Separator/>
+                <Button fx:id="btnPrintDesc"    onAction="#printDescending"/>
+                <Button fx:id="btnFilterName"   onAction="#filterStartsWithName"/>
+                <Button fx:id="btnFilterMin"    onAction="#filterLessThanMinutes"/>
+                <Separator/>
+                <Button fx:id="btnScript"       onAction="#executeScript"/>
+            </ToolBar>
+        </VBox>
     </bottom>
 
 </BorderPane>

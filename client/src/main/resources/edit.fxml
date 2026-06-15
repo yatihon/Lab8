@@ -38,7 +38,7 @@
     <CheckBox fx:id="carCoolBox"
               text="Car Cool"/>
 
-    <Button text="OK"
-            onAction="#save"/>
+    <Button text="OK" onAction="#save"/>
+    <Button text="Отмена" onAction="#cancel"/>
 
 </VBox>

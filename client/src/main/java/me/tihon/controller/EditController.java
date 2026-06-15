@@ -112,4 +112,10 @@ public class EditController {
         weaponBox.setValue(human.getWeaponType());
         carCoolBox.setSelected(human.getCar() != null && human.getCar().isCool());
     }
+
+    @FXML
+    private void cancel() {
+        result = null;
+        ((Stage) nameField.getScene().getWindow()).close();
+    }
 }

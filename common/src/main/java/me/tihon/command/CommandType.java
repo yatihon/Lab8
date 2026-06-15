@@ -15,6 +15,7 @@ public enum CommandType {
     ADD_IF_MIN,
     REMOVE_LOWER,
     LOGIN,
-    REGISTER
+    REGISTER,
+    EXECUTE_SCRIPT
 }
 
