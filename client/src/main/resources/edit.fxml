@@ -38,14 +38,14 @@
         <Label text="Weapon" GridPane.rowIndex="6" GridPane.columnIndex="0" styleClass="label-muted"/>
         <ComboBox fx:id="weaponBox" GridPane.rowIndex="6" GridPane.columnIndex="1" maxWidth="Infinity"/>
 
-        <CheckBox fx:id="realHeroBox" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
-        <CheckBox fx:id="toothpickBox" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
-        <CheckBox fx:id="carCoolBox" GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+        <CheckBox fx:id="realHeroBox" text="Real Hero" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+        <CheckBox fx:id="toothpickBox" text="Has Toothpick" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+        <CheckBox fx:id="carCoolBox" text="Cool Car" GridPane.rowIndex="9" GridPane.columnIndex="1"/>
     </GridPane>
 
     <HBox spacing="10" alignment="CENTER" style="-fx-padding: 10 0 0 0;">
-        <Button fx:id="saveBtn" onAction="#save" styleClass="button-accent" prefWidth="120"/>
-        <Button fx:id="cancelBtn" onAction="#cancel" styleClass="button-danger" prefWidth="120"/>
+        <Button fx:id="saveBtn" text="Save" onAction="#save" styleClass="button-accent" prefWidth="120"/>
+        <Button fx:id="cancelBtn" text="Cancel" onAction="#cancel" styleClass="button-danger"  prefWidth="120"/>
     </HBox>
 
 </VBox>
