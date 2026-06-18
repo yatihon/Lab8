@@ -45,6 +45,7 @@ public class VisualPane extends Pane {
     public void draw(TreeSet<HumanBeing> humans) {
 
         if (humans == null) humans = new TreeSet<>();
+        drawBG();
         double minX = humans.stream().mapToDouble(h -> h.getCoordinates().getX()).min().orElse(0);
         double maxX = humans.stream().mapToDouble(h -> h.getCoordinates().getX()).max().orElse(minX+1);
         double minY = humans.stream().mapToDouble(h -> h.getCoordinates().getY()).min().orElse(0);
@@ -91,14 +92,14 @@ public class VisualPane extends Pane {
         circle.setStrokeWidth(2.5);
 
         Text label = new Text(human.getName());
-        label.setFill(Color.WHITE);
+        label.setFill(Color.BLACK);
         label.setStyle("-fx-font-size: 11; -fx-font-weight: bold;");
         label.setMouseTransparent(true);
         positionLabel(label, x, y, r);
 
         Timeline pulse = buildPulse(circle, r);
         circle.setOnMouseEntered(e -> {
-            circle.setStroke(Color.WHITE);
+            circle.setStroke(Color.BLACK);
             circle.setStrokeWidth(3.5);
         });
         circle.setOnMouseExited(e -> {
@@ -112,9 +113,6 @@ public class VisualPane extends Pane {
 
     private void updateNode(Node node, HumanBeing human, double x, double y, double r, Color color) {
         node.data = human;
-        TranslateTransition move = new TranslateTransition(Duration.millis(400), node.circle);
-        double dx = x - node.circle.getCenterX();
-        double dy = y - node.circle.getCenterY();
         node.circle.setCenterX(x);
         node.circle.setCenterY(y);
         node.label.setText(human.getName());
@@ -224,5 +222,34 @@ public class VisualPane extends Pane {
     private Color getColorForOwner(String owner) {
         return ownerColors.computeIfAbsent(owner,
                 o -> Color.hsb(Math.abs(o.hashCode() % 360), 0.85, 0.85));
+    }
+
+    private void drawBG() {
+        getChildren().removeIf(n -> "grid".equals(n.getUserData()));
+
+        javafx.scene.canvas.Canvas canvas = new javafx.scene.canvas.Canvas(
+                getWidth() <= 0 ? 700 : getWidth(), getHeight() <= 0 ? 500 : getHeight());
+        canvas.setUserData("grid");
+        canvas.setMouseTransparent(true);
+
+        javafx.scene.canvas.GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.setStroke(javafx.scene.paint.Color.web("#313244"));
+        gc.setLineWidth(0.5);
+
+        double w = canvas.getWidth();
+        double h = canvas.getHeight();
+        double step = 50;
+        for (double x = 0; x < w; x += step) {
+            gc.strokeLine(x, 0, x, h);
+        }
+        for (double y = 0; y < h; y += step) {
+            gc.strokeLine(0, y, w, y);
+        }
+
+        gc.setStroke(javafx.scene.paint.Color.web("#45475a"));
+        gc.setLineWidth(1);
+        gc.strokeLine(w / 2, 0, w / 2, h);
+        gc.strokeLine(0, h / 2, w, h / 2);
+        getChildren().add(0, canvas);
     }
 }

@@ -20,7 +20,7 @@ public class Clear implements Command {
         String user = request.getUsername();
         boolean success = humanDAO.clearByOwner(user);
         if (!success) return new Response("Не удалось удалить элементы");
-        manager.getCollection().removeIf(h -> user.equals(h.getOwner()));
+        manager.removeByOwner(user);
         return new Response("Удалены все ваши элементы");
     }
 

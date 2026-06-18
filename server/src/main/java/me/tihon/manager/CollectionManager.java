@@ -63,5 +63,14 @@ public class CollectionManager {
             lock.unlock();
         }
     }
+
+    public void removeByOwner(String owner) {
+        lock.lock();
+        try {
+            collection.removeIf(h -> owner.equals(h.getOwner()));
+        } finally {
+            lock.unlock();
+        }
+    }
 }
 

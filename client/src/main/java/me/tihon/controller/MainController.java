@@ -19,6 +19,7 @@ import me.tihon.model.HumanBeing;
 
 import java.io.File;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -49,6 +50,9 @@ public class MainController {
     @FXML private Label filterColLabel;
     @FXML private Label sortLabel;
     @FXML private Label langLabel;
+    @FXML private Label statusCountLabel;
+    @FXML private Label statusTimeLabel;
+    @FXML private Label statusConnLabel;
     @FXML private Button btnRefresh;
     @FXML private Button btnInfo;
     @FXML private Button btnHelp;
@@ -155,10 +159,28 @@ public class MainController {
     }
 
     private void applyUpdate(TreeSet<HumanBeing> collection) {
-        if (collection == null) return;
+        if (collection == null) {
+            if (statusConnLabel != null) {
+                statusConnLabel.setText("● Нет связи");
+                statusConnLabel.setStyle("-fx-text-fill: #f38ba8; -fx-font-size: 11px;");
+            }
+            return;
+        }
         rawData.setAll(collection);
         applyFilterAndSort();
         visualPane.draw(new TreeSet<>(rawData));
+        updateStatusBar(collection.size());
+    }
+
+    private void updateStatusBar(int total) {
+        if (statusCountLabel == null) return;
+        int mine = (int) rawData.stream()
+                .filter(h -> username.equals(h.getOwner())).count();
+        statusCountLabel.setText("Объектов: " + total + "  •  Ваших: " + mine);
+        statusTimeLabel.setText("Обновлено: " +
+                Localization.getInstance().formatDateTime(java.time.ZonedDateTime.now()));
+        statusConnLabel.setText("● Online");
+        statusConnLabel.setStyle("-fx-text-fill: #a6e3a1; -fx-font-size: 11px;");
     }
 
     private void applyFilterAndSort() {
@@ -284,9 +306,16 @@ public class MainController {
 
     @FXML
     private void clearCollection() {
-        Response response = networkManager.send(new Request(CommandType.CLEAR, null, username, password));
-        showMessage(response.getMessage());
-        refreshCollection();
+        refresher.stopR();
+        try {
+            Response response = networkManager.send(new Request(CommandType.CLEAR, null, username, password));
+            showMessage(response.getMessage());
+            Response show = networkManager.send(new Request(CommandType.SHOW, null, username, password));
+            applyUpdate(show.getCollection());
+        } finally {
+            refresher = new Refresher(networkManager, username, password, this::applyUpdate);
+            refresher.startR();
+        }
     }
 
     @FXML

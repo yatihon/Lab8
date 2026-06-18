@@ -11,6 +11,7 @@ public class ClientApp extends Application {
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
         Scene scene = new Scene(loader.load());
+        scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
         stage.setTitle("HumanBeing Manager");
         stage.setScene(scene);
         stage.setMinWidth(400);

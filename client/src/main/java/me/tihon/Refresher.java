@@ -14,7 +14,7 @@ import java.util.function.Consumer;
 
 public class Refresher {
 
-    private static final int INTERVAL = 5;
+    private static final int INTERVAL = 15;
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor(r -> {
         Thread t = new Thread(r, "refresher-thread"); t.setDaemon(true); return t;
     });
