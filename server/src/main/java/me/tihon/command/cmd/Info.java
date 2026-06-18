@@ -4,6 +4,7 @@ import me.tihon.command.Command;
 import me.tihon.dto.Request;
 import me.tihon.dto.Response;
 import me.tihon.manager.CollectionManager;
+import java.time.format.DateTimeFormatter;
 
 public class Info implements Command {
 
@@ -14,13 +15,14 @@ public class Info implements Command {
 
     @Override
     public Response execute(Request request) {
-        return new Response(
-                "Тип: " + manager.getCollection().getClass().getSimpleName() +
-                        "\nРазмер: " + manager.getCollection().size() +
-                        "\nДата инициализации: " + manager.getInitDate()
-        );
-    }
+        var collection = manager.getCollection();
 
+        String date = manager.getInitDate() != null ? manager.getInitDate().format(
+                DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")) : "неизвестно";
+        return new Response(
+                "Тип коллекции: " + collection.getClass().getSimpleName() + "\n" +
+                        "Размер: " + collection.size() + "\n" + "Дата инициализации: " + date);
+    }
     @Override
     public boolean requiresAuth() {
         return true;

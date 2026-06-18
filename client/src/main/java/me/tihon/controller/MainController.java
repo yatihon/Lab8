@@ -200,36 +200,36 @@ public class MainController {
     private String getAsString(HumanBeing h, String col) {
         if (col == null) return "";
         return switch (col) {
-            case "id"          -> String.valueOf(h.getId());
-            case "owner"       -> h.getOwner() != null ? h.getOwner() : "";
-            case "name"        -> h.getName() != null ? h.getName() : "";
-            case "x"           -> String.valueOf(h.getCoordinates().getX());
-            case "y"           -> String.valueOf(h.getCoordinates().getY());
+            case "id" -> String.valueOf(h.getId());
+            case "owner" -> h.getOwner() != null ? h.getOwner() : "";
+            case "name" -> h.getName() != null ? h.getName() : "";
+            case "x" -> String.valueOf(h.getCoordinates().getX());
+            case "y" -> String.valueOf(h.getCoordinates().getY());
             case "impactSpeed" -> String.valueOf(h.getImpactSpeed());
-            case "weapon"      -> h.getWeaponType() != null ? h.getWeaponType().name() : "";
-            case "realHero"    -> String.valueOf(h.getRealHero());
-            case "soundtrack"  -> h.getSoundtrackName() != null ? h.getSoundtrackName() : "";
-            case "minutes"     -> String.valueOf(h.getMinutesOfWaiting());
-            default            -> "";
+            case "weapon" -> h.getWeaponType() != null ? h.getWeaponType().name() : "";
+            case "realHero" -> String.valueOf(h.getRealHero());
+            case "soundtrack" -> h.getSoundtrackName() != null ? h.getSoundtrackName() : "";
+            case "minutes" -> String.valueOf(h.getMinutesOfWaiting());
+            default -> "";
         };
     }
 
     private Comparator<HumanBeing> getComparator(String col) {
         return switch (col != null ? col : "id") {
-            case "id"          -> Comparator.comparingInt(h -> nvl0(h.getId()));
-            case "owner"       -> Comparator.comparing(h -> nvl(h.getOwner()));
-            case "name"        -> Comparator.comparing(h -> nvl(h.getName()));
-            case "x"           -> Comparator.comparingDouble(h -> h.getCoordinates().getX());
-            case "y"           -> Comparator.comparingInt(h -> nvl0(h.getCoordinates().getY()));
+            case "id" -> Comparator.comparingInt(h -> nvl0(h.getId()));
+            case "owner" -> Comparator.comparing(h -> nvl(h.getOwner()));
+            case "name" -> Comparator.comparing(h -> nvl(h.getName()));
+            case "x" -> Comparator.comparingDouble(h -> h.getCoordinates().getX());
+            case "y" -> Comparator.comparingInt(h -> nvl0(h.getCoordinates().getY()));
             case "impactSpeed" -> Comparator.comparingDouble(
                     h -> h.getImpactSpeed() != null ? h.getImpactSpeed() : 0f);
-            case "weapon"      -> Comparator.comparing(
+            case "weapon" -> Comparator.comparing(
                     h -> h.getWeaponType() != null ? h.getWeaponType().name() : "");
-            case "realHero"    -> Comparator.comparing(h -> String.valueOf(h.getRealHero()));
-            case "soundtrack"  -> Comparator.comparing(h -> nvl(h.getSoundtrackName()));
-            case "minutes"     -> Comparator.comparingLong(
+            case "realHero" -> Comparator.comparing(h -> String.valueOf(h.getRealHero()));
+            case "soundtrack" -> Comparator.comparing(h -> nvl(h.getSoundtrackName()));
+            case "minutes" -> Comparator.comparingLong(
                     h -> h.getMinutesOfWaiting() != null ? h.getMinutesOfWaiting() : 0L);
-            default            -> Comparator.comparingInt(h -> nvl0(h.getId()));
+            default -> Comparator.comparingInt(h -> nvl0(h.getId()));
         };
     }
 
@@ -259,7 +259,15 @@ public class MainController {
     @FXML
     private void showInfo() {
         Response response = networkManager.send(new Request(CommandType.INFO, null, username, password));
-        showMessage(response.getMessage());
+        TextArea ta = new TextArea(response.getMessage());
+        ta.setEditable(false);
+        ta.setWrapText(true);
+        ta.setPrefSize(360, 120);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Информация");
+        alert.setHeaderText(null);
+        alert.getDialogPane().setContent(ta);
+        alert.showAndWait();
     }
 
     @FXML
@@ -271,6 +279,7 @@ public class MainController {
     private void showMessage(String txt) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText(txt != null ? txt : "");
+        alert.getDialogPane().getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
         alert.showAndWait();
     }
 
@@ -410,6 +419,7 @@ public class MainController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/edit.fxml"));
             Scene scene = new Scene(loader.load());
+            scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
             EditController controller = loader.getController();
             if (human != null) controller.setHuman(human);
             Stage stage = new Stage();

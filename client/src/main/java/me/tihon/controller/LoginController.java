@@ -85,6 +85,7 @@ public class LoginController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/main.fxml"));
             Scene scene = new Scene(loader.load());
+            scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
             MainController controller = loader.getController();
             controller.init(username, password, networkManager);
             Stage stage = (Stage) usernameField.getScene().getWindow();

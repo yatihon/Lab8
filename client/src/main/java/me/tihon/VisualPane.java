@@ -92,14 +92,14 @@ public class VisualPane extends Pane {
         circle.setStrokeWidth(2.5);
 
         Text label = new Text(human.getName());
-        label.setFill(Color.BLACK);
+        label.setFill(Color.WHITE);
         label.setStyle("-fx-font-size: 11; -fx-font-weight: bold;");
         label.setMouseTransparent(true);
         positionLabel(label, x, y, r);
 
         Timeline pulse = buildPulse(circle, r);
         circle.setOnMouseEntered(e -> {
-            circle.setStroke(Color.BLACK);
+            circle.setStroke(Color.WHITE);
             circle.setStrokeWidth(3.5);
         });
         circle.setOnMouseExited(e -> {
