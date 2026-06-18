@@ -75,7 +75,6 @@ public class ScriptExecutor {
                 result.add("[" + cmd + "] Ошибка: " + e.getMessage());
             }
         }
-
         executingFiles.remove(canon);
         return result;
     }
@@ -155,13 +154,13 @@ public class ScriptExecutor {
 
     private HumanBeing readHuman(Queue<String> q) {
         String name = requireNext(q, "name");
-        float  x = Float.parseFloat(requireNext(q, "x"));
-        int    y = Integer.parseInt(requireNext(q, "y"));
+        float x = Float.parseFloat(requireNext(q, "x"));
+        int y = Integer.parseInt(requireNext(q, "y"));
         boolean realHero = Boolean.parseBoolean(requireNext(q, "realHero"));
         boolean toothpick = Boolean.parseBoolean(requireNext(q, "hasToothpick"));
-        float  impactSpeed = Float.parseFloat(requireNext(q, "impactSpeed"));
+        float impactSpeed = Float.parseFloat(requireNext(q, "impactSpeed"));
         String soundtrack = requireNext(q, "soundtrackName");
-        long   minutes = Long.parseLong(requireNext(q, "minutesOfWaiting"));
+        long minutes = Long.parseLong(requireNext(q, "minutesOfWaiting"));
         String weaponStr = requireNext(q, "weaponType");
         boolean carCool = Boolean.parseBoolean(requireNext(q, "car.cool"));
         WeaponType weapon = weaponStr.equalsIgnoreCase("null") ? null
